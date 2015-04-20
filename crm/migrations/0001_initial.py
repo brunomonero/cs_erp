@@ -15,11 +15,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('zipcode', models.CharField(help_text='Preencha com CEP do Endere\xe7o.', max_length=8, verbose_name='CEP')),
-                ('street', models.CharField(help_text='Preencha com Logradouro do Endere\xe7o.', max_length=8, verbose_name='Logradouro')),
+                ('street', models.CharField(help_text='Preencha com Logradouro do Endere\xe7o.', max_length=512, verbose_name='Logradouro')),
                 ('number', models.PositiveIntegerField(default=0, help_text='Preencha com N\xfamero do Endere\xe7o.', verbose_name='N\xfamero')),
-                ('complement', models.CharField(help_text='Preencha com o Complemento do Endere\xe7o. P.ex.: apto. 101', max_length=256, null=True, verbose_name='Complemento', blank=True)),
-                ('neighborhood', models.CharField(help_text='Preencha com o Bairro do Endere\xe7o.', max_length=256, verbose_name='Bairro')),
+                ('additional', models.CharField(help_text='Preencha com o Complemento do Endere\xe7o. P.ex.: apto. 101', max_length=256, null=True, verbose_name='Complemento', blank=True)),
                 ('city', models.CharField(help_text='Preencha com a Cidade do Endere\xe7o.', max_length=256, verbose_name='Cidade')),
+                ('neighborhood', models.CharField(help_text='Preencha com o Bairro do Endere\xe7o.', max_length=256, verbose_name='Bairro')),
             ],
             options={
             },
@@ -30,7 +30,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(help_text='Preencha com Nome do Contato.', max_length=256, verbose_name='Nome')),
+                ('position', models.CharField(help_text='Preencha com o Cargo do Contato.', max_length=256, verbose_name='Cargo')),
                 ('email', models.EmailField(help_text='Preencha com o Email do Cliente.', max_length=256, verbose_name='Email')),
+                ('phone', models.CharField(help_text='Preencha com o Telefone do Contato.', max_length=256, verbose_name='Telefone')),
             ],
             options={
             },
@@ -75,7 +77,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('code', models.CharField(help_text='Preencha com a Sigla do Estado.', max_length=2, verbose_name='Sigla')),
                 ('name', models.CharField(help_text='Preencha com o Nome do Estado.', max_length=256, verbose_name='Nome')),
-                ('country', models.ForeignKey(verbose_name='Pa\xeds', to='crm.Country', help_text='Selecione um Pa\xeds.')),
+                ('country', models.ForeignKey(blank=True, to='crm.Country', help_text='Selecione um Pa\xeds.', null=True, verbose_name='Pa\xeds')),
             ],
             options={
             },
@@ -84,13 +86,31 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contact',
             name='customer',
-            field=models.ForeignKey(verbose_name='Cliente', to='crm.Customer', help_text='Selecione um Cliente.'),
+            field=models.ForeignKey(blank=True, to='crm.Customer', help_text='Selecione um Cliente.', null=True, verbose_name='Cliente'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='contact',
             name='department',
             field=models.ForeignKey(verbose_name='Departamento', to='crm.Department', help_text='Selecione um Departamento.'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='address',
+            name='country',
+            field=models.ForeignKey(blank=True, to='crm.Country', help_text='Selecione um Pa\xeds.', null=True, verbose_name='Pa\xeds'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='address',
+            name='customer',
+            field=models.ForeignKey(blank=True, to='crm.Customer', help_text='Selecione um Cliente.', null=True, verbose_name='Cliente'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='address',
+            name='state',
+            field=models.ForeignKey(blank=True, to='crm.State', help_text='Selecione um Estado.', null=True, verbose_name='Estado'),
             preserve_default=True,
         ),
     ]

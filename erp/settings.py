@@ -62,6 +62,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crm',
+    'sales',
+    'pmo',
+    'hr',
 )
 
 MIDDLEWARE_CLASSES = (
