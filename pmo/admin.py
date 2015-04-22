@@ -4,6 +4,14 @@ from pmo.models import *
 
 # Register your models here.
 
+class TaskInline(admin.TabularInline):
+	model = Task
+	extra = 0
+	fields = (
+		'name',
+		'description',
+	)
+
 class TaskAdmin(admin.ModelAdmin):
 	list_display = (
 		'project',
@@ -33,6 +41,9 @@ class ProjectAdmin(admin.ModelAdmin):
 	list_filter = (
 		'type',
 		'status',
+	)
+	inlines = (
+		TaskInline,
 	)
 
 admin.site.register(Task, TaskAdmin)

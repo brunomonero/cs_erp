@@ -13,11 +13,18 @@ class Contract(models.Model):
 	def __unicode__(self):
 		return u"{0} ({1})".format(self.name, self.customer.name)
 
+	class Meta:
+		verbose_name = u'Contrato'
+
 class Function(models.Model):
 	name = models.CharField(u'Função', max_length=256, blank=False, null=False, help_text=u'Preencha com Nome da Função.')
 
 	def __unicode__(self):
 		return u"{0}".format(self.name)
+
+	class Meta:
+		verbose_name = u'Função'
+		verbose_name_plural = u'Funções'
 
 class PriceList(models.Model):
 	contract = models.ForeignKey('Contract', verbose_name=u'Contrato', blank=False, null=False, help_text=u'Selecione um Contrato.')
@@ -26,3 +33,7 @@ class PriceList(models.Model):
 
 	def __unicode__(self):
 		return u"{0}".format(self.name)
+
+	class Meta:
+		verbose_name = u'Lista de Preços'
+		verbose_name_plural = u'Listas de Preços'

@@ -10,12 +10,18 @@ class Customer(models.Model):
 	def __unicode__(self):
 		return u"{0} - {1}".format(self.code, self.name)
 
+	class Meta:
+		verbose_name = u'Cliente'
+
 class Department(models.Model):
 	code = models.CharField(u'Sigla', max_length=4, blank=False, null=False, unique=True, help_text=u'Preencha com a Sigla do Cliente.') 
 	name = models.CharField(u'Nome', max_length=256, blank=False, null=False, help_text=u'Preencha com Nome do Cliente.')
 
 	def __unicode__(self):
 		return u"{0} - {1}".format(self.code, self.name)	
+
+	class Meta:
+		verbose_name = u'Departamento'
 
 class Contact(models.Model):
 	customer = models.ForeignKey('Customer', verbose_name=u'Cliente', blank=True, null=True, help_text=u'Selecione um Cliente.')
@@ -28,6 +34,9 @@ class Contact(models.Model):
 	def __unicode__(self):
 		return u"{0}".format(self.name)
 
+	class Meta:
+		verbose_name = u'Contato'
+
 class State(models.Model):
 	country = models.ForeignKey('Country', verbose_name=u'País', blank=True, null=True, help_text=u'Selecione um País.')
 	code = models.CharField(u'Sigla', max_length=2, blank=False, null=False, help_text=u'Preencha com a Sigla do Estado.')
@@ -36,12 +45,19 @@ class State(models.Model):
 	def __unicode__(self):
 		return u"{0} - {1} (2)".format(self.code, self.name, self.country.code)
 
+	class Meta:
+		verbose_name = u'Estado'
+
 class Country(models.Model):
 	code = models.CharField(u'Sigla', max_length=3, blank=False, null=False, help_text=u'Preencha com a Sigla do País.')
 	name = models.CharField(u'Nome', max_length=256, blank=False, null=False, help_text=u'Preencha com o Nome do País.')
 
 	def __unicode__(self):
 		return u"{0} - {1}".format(self.code, self.name)
+
+	class Meta:
+		verbose_name = u'País'
+		verbose_name_plural = u'Países'
 
 class Address(models.Model):
 	customer = models.ForeignKey('Customer', verbose_name=u'Cliente', blank=True, null=True, help_text=u'Selecione um Cliente.')
@@ -56,3 +72,6 @@ class Address(models.Model):
 
 	def __unicode__(self):
 		return u"{0}, {1} - {2}".format(self.street, self.number, self.additional)
+
+	class Meta:
+		verbose_name = u'Endereço'

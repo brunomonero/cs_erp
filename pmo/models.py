@@ -6,12 +6,15 @@ from crm.models import *
 
 class Task(models.Model):
 	project = models.ForeignKey('Project', verbose_name=u'Projeto', blank=False, null=False, help_text=u'Selecione um Projeto.')
-	code = models.AutoField(u'Código', primary_key=True, help_text=u'Cödigo da Atividade.')
+	code = models.AutoField(u'Código', primary_key=True, help_text=u'Código da Atividade.')
 	name = models.CharField(u'Nome', max_length=256, blank=False, null=False, help_text=u'Preencha com Nome do Atividade.')
 	description = models.TextField(u'Descrição', max_length=256, blank=True, null=True, help_text=u'Preencha com a Descrição da Atividade.')
 
 	def __unicode__(self):
 		return u"{0} - {1}".format(self.code, self.name)
+
+	class Meta:
+		verbose_name = u'Tarefa'
 
 class Project(models.Model):
 	PROJECT_TYPE_CHOICES = (
@@ -32,3 +35,6 @@ class Project(models.Model):
 
 	def __unicode__(self):
 		return u"{0} - {1} (2)".format(self.code, self.name, self.customer.name)
+
+	class Meta:
+		verbose_name = u'Projeto'
