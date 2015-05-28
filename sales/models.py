@@ -32,7 +32,7 @@ class PriceList(models.Model):
 	price = models.DecimalField(u'Preço', max_digits=5, decimal_places=2, blank=False, null=False, help_text=u'Preencha com o Preço da Função.')
 
 	def __unicode__(self):
-		return u"{0}".format(self.name)
+		return u"{0} - {1}".format(self.function, self.price)
 
 	class Meta:
 		verbose_name = u'Lista de Preços'

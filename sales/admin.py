@@ -34,7 +34,7 @@ class ContractAdmin(admin.ModelAdmin):
 		'finish_date',
 	)
 	inlines = [
-		PriceListInline
+		PriceListInline,
 	]
 
 admin.site.register(Function, FunctionAdmin)
